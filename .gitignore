@@ -12,5 +12,4 @@ src/
 # Optional eslint cache
 .eslintcache
 
-
-.package-lock.json
+package-lock.json

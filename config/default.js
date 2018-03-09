@@ -20,7 +20,7 @@ const vue = {
         start: `<body>`,
         end: `
           <script src="/js/map.js"></script>
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARG5-n8k_Fyzri_7zlC06_KUVqxbFt-h0&callback=initMap" async defer></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARG5-n8k_Fyzri_7zlC06_KUVqxbFt-h0&callback=gmaps" async defer></script>
         </body>`
       },
       template: {

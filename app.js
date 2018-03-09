@@ -26,27 +26,16 @@ app.use(bodyParser.json({ type: 'application/json' }))
 
 /**
  * Load the Vue middleware configuration in order to render Vue from the server side
+ * All static files, scripts and stylesheets are configured in the config file
+ * 
  */
 const VueMiddleware = Vue.init(config.vue.middleware)
 app.use(VueMiddleware) // enable res.renderVue()
 
-// app.use(morgan('dev'))
 app.use(cors()) // Enable cors
 
 // Load routes
 app.use('/', routes)
-
-// 404 not found
-app.use((req, res) => {
-  // logger.error('404 Not found')
-  res.renderVue('errors/404', {}, config.vue.template('404! Not found'))
-})
-
-// Other errors
-app.use((err, req, res, next) => {
-  logger.error(err)
-  res.renderVue('errors/500', {}, config.vue.template(err))
-})
 
 app.listen(port, () => {
   logger.info('RESTful API server started on http://localhost:' + port)

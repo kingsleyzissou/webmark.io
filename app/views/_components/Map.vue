@@ -9,13 +9,13 @@
           <nav class="level">
             <div class="level-item has-text-centered">
               <div>
-                <p class="heading">Gianluca</p>
+                <p class="heading">Devin Mendez</p>
                 <p class="title"><i class="fas fa-user"></i></p>
               </div>
             </div>
             <div class="level-item has-text-centered">
               <div>
-                <p class="heading">Uluru, Australia</p>
+                <p class="heading">Victoria, Seychelles</p>
                 <p class="title"><i class="fas fa-home"></i></p>
               </div>
             </div>
@@ -27,7 +27,7 @@
             </div>
             <div class="level-item has-text-centered">
               <div>
-                <p class="heading">fake@email.com</p>
+                <p class="heading">devinmendez@fake.com</p>
                 <p class="title"><i class="fas fa-at"></i></p>
               </div>
             </div>
@@ -47,19 +47,3 @@
   }
 
 </script>
-
-<style>
-
-  .card:hover {
-    background: rgba(0,0,0,0.2);
-  }
-
-  .card-image i {
-    color: #3273dc;
-  }
-
-  .card:hover .card-image i {
-    color: #363636;
-  }
-
-</style>

@@ -2,7 +2,10 @@ import mongoose from 'mongoose'
 import logger from '../utilities/logger'
 const Schema = mongoose.Schema
 
-// Set the schema for Bookmarks
+/**
+ * Define the Mongoose schema for bookmarks
+ * 
+ */
 const bookmarkSchema = new Schema({
   id: {
     type: Number,

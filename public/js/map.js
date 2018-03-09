@@ -1,11 +1,15 @@
-function initMap() {
-  var uluru = {lat: -25.363, lng: 131.044};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
+function gmaps() {
+
+  const victoria = {lat: -4.619, lng: 55.446};
+
+  const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
+    center: victoria
   });
-  var marker = new google.maps.Marker({
-    position: uluru,
+
+  const marker = new google.maps.Marker({
+    position: victoria,
     map: map
   });
+
 }

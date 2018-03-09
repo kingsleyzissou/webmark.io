@@ -2,7 +2,7 @@ import config from 'config'
 import logger from '../utilities/logger'
 
 /**
- * Render the about page view
+ * Render the welcome page view
  * 
  */
 const index = (req, res) => {

@@ -1,3 +1,12 @@
 .has-bg-img {
   background: linear-gradient(141deg, rgba(0, 158, 108, 0.75) 0%, rgba(0, 209, 178, 0.75) 71%, rgba(0, 231, 235, 0.75) 100%), url("/images/placeholder.jpg") center center;
   background-size: cover; }
+
+.card:hover {
+  background: rgba(0, 0, 0, 0.2); }
+
+.card-image i {
+  color: #3273dc; }
+
+.card:hover .card-image i {
+  color: #363636; }

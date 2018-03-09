@@ -42,13 +42,6 @@
       navbar, // Import navbar and make the <navbar></navbar> tags available
       tile // Import tile and make the <tile></tile> tags available
     },
-    mounted: () => {
-      console.log(axios)
-      axios.get('/test')
-        .then(res => {
-          console.log(res)
-        })
-    },
     methods: {
       goTo(id) {
         console.log('clicked')

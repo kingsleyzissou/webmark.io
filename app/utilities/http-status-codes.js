@@ -1,4 +1,7 @@
-// Custom helper object used to send http status codes in xml/xhr requests
+/**
+ * Custom helper object used to send http status codes for xhr requests
+ * 
+ */
 const httpStatusCodes = {
   'OK': 200,
   'CREATE': 201,

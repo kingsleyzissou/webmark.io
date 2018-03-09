@@ -64,13 +64,6 @@
     components: {
       navbar // Import navbar and make the <navbar></navbar> tags available
     },
-    mounted: () => {
-      console.log()
-      axios.get('/test')
-        .then(res => {
-          console.log(res)
-        })
-    },
     methods: {
       // Delete method via an xhr request to the server
       deleteBookmark: (index, id) => {

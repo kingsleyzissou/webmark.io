@@ -1,7 +1,10 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-// Set the schema for Categories
+/**
+ * Define the Mongoose schema for categories
+ * 
+ */
 const categorySchema = new Schema({
   id: {
     type: Number,
