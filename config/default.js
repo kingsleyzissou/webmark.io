@@ -40,7 +40,8 @@ const vue = {
           { name: 'twitter:' + title, content: title },
           { script: 'https://unpkg.com/vue' },
           { script: 'https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js' },
-          // { script: 'https://unpkg.com/vue-router/dist/vue-router.js' },
+          { style: '/css/normalize.css' },
+          { style: '/css/bulma.css' },
           { style: 'https://use.fontawesome.com/releases/v5.0.6/css/all.css' },
           { style: '/css/style.css' }
         ]

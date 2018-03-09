@@ -7,7 +7,6 @@ import Vue from 'express-vue'
 import db from './app/database/connect'
 import routes from './app/routes/'
 import logger from './app/utilities/logger'
-// import status from './app/utilities/http-status-codes'
 
 const app = express()
 
@@ -44,7 +43,7 @@ app.use((req, res) => {
 })
 
 // Other errors
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   logger.error(err)
   res.renderVue('errors/500', {}, config.vue.template(err))
 })

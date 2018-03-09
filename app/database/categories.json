@@ -1,0 +1,22 @@
+{
+  "collection": [
+    { 
+      "id": 1,
+      "slug" : "html", 
+      "title" : "HTML Learning Resources", 
+      "icon" : "fas fa-code" 
+    },
+    { 
+      "id": 2,
+      "slug" : "css", 
+      "title" : "CSS Learning Resources", 
+      "icon" : "fab fa-css3" 
+    },
+    { 
+      "id": 3,
+      "slug" : "js", 
+      "title" : "JS Learning Resources", 
+      "icon" : "fab fa-js" 
+    }
+  ]
+}

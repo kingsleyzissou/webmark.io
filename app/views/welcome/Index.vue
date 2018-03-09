@@ -34,12 +34,3 @@
     }
   }
 </script>
-
-<style>
-  .has-bg-img { 
-    background: 
-      linear-gradient(141deg, rgba(0,158,108, 0.75) 0%, rgba(0,209,178,0.75) 71%, rgba(0,231,235,0.75) 100%),
-      url('/images/placeholder.jpg') center center; 
-    background-size: cover; 
-  }
-</style>

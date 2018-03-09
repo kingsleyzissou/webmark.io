@@ -65,7 +65,7 @@
       navbar // Import navbar and make the <navbar></navbar> tags available
     },
     mounted: () => {
-      console.log(axios)
+      console.log()
       axios.get('/test')
         .then(res => {
           console.log(res)
@@ -74,7 +74,7 @@
     methods: {
       // Delete method via an xhr request to the server
       deleteBookmark: (index, id) => {
-        axios.post('/dashboard/bookmarks/' + id + '/destroy', { id })
+        axios.delete('/bookmarks/' + id, { data: { id } })
           .then((res) => {
             console.log(app.bookmarks)
             app.bookmarks.splice(index,1)

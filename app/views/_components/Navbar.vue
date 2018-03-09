@@ -4,24 +4,21 @@
       <nav class="navbar">
         <div class="container">
           <div class="navbar-brand">
-            <a class="navbar-item">
+            <a href="/" class="navbar-item">
               BOOKMARK.IO
             </a>
-            <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span class="navbar-burger burger" :class="{'is-active': active}" @click="active = !active">
               <span></span>
               <span></span>
               <span></span>
             </span>
           </div>
-          <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-menu" :class="{'is-active': active}">
             <div class="navbar-end">
-              <a href="/" class="navbar-item">
-                Home
-              </a>
-              <a href="/categories" class="navbar-item" :class="{'is-active': active === 'dashboard'}">
+              <a href="/categories" class="navbar-item" :class="{'is-active': current === 'dashboard'}">
                 Dashboard
               </a>
-              <a href="/about" class="navbar-item" :class="{'is-active': active === 'about'}">
+              <a href="/about" class="navbar-item" :class="{'is-active': current === 'about'}">
                 About
               </a>
             </div>
@@ -34,7 +31,12 @@
 <script>
   
   export default {
-    props: ['active']
+    props: ['current'],
+    data: () => {
+      return {
+        active: false
+      }
+    }
   }
 
 </script>
