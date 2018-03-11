@@ -25,12 +25,16 @@
       </div>
     </section>
 
+    <gmap style="display:none"></gmap>
+
   </div>
 </template>
 
 <script>
   import navbar from './_components/Navbar.vue' // import the navbar component
   import AppFooter from './_components/Footer.vue' // import the navbar component
+  import gmap from './_components/Map.vue' // Import the google maps component
+  
 
   export default {
     data: () => {
@@ -38,6 +42,7 @@
     },
     components: {
       navbar, // Import navbar and make the <navbar></navbar> tags available
+      gmap, // Make the <gmap></gmap> tags available      
       AppFooter // Import navbar and make the <app-footer></app-footer> tags available
     }
   }

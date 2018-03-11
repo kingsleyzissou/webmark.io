@@ -87,6 +87,8 @@
 
       </section>
 
+      <gmap style="display:none"></gmap>
+
     </main>
 
     <footer>
@@ -105,6 +107,8 @@
 <script>
   import navbar from './_components/Navbar.vue' // Import the navbar component
   import AppFooter from './_components/Footer.vue' // Import the footer component
+  import gmap from './_components/Map.vue' // Import the google maps component
+  
   
 
   export default {
@@ -113,6 +117,7 @@
     },
     components: {
       navbar, // Import navbar and make the <navbar></navbar> tags available
+      gmap, // Make the <gmap></gmap> tags available      
       AppFooter // Import footer and make the <app-footer></app-footer> tags available
     },
     methods: {

@@ -90,6 +90,8 @@
 
       </section>
 
+      <gmap style="display:none"></gmap>
+
     </main>
 
     <footer>
@@ -109,6 +111,8 @@
   import navbar from './_components/Navbar.vue' // Import the navbar component
   import tile from './_components/Tile.vue' // Import the tile component
   import AppFooter from './_components/Footer.vue' // Import the footer component
+  import gmap from './_components/Map.vue' // Import the google maps component
+  
 
   export default {
     data: () => {
@@ -117,6 +121,7 @@
     components: {
       navbar, // Import navbar and make the <navbar></navbar> tags available
       tile, // Import tile and make the <tile></tile> tags available
+      gmap, // Make the <gmap></gmap> tags available      
       AppFooter // Import footer and make the <app-footer></app-footer> tags available
     },
     methods: {
