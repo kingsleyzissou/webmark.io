@@ -1,7 +1,7 @@
 .has-bg-img { 
   background: 
     linear-gradient(141deg, rgba(0,158,108, 0.75) 0%, rgba(0,209,178,0.75) 71%, rgba(0,231,235,0.75) 100%),
-    url('/images/placeholder.jpg') center center; 
+    url('https://cdn.glitch.com/b56e6ceb-db4f-4b4a-a912-508995a1e27c%2Fplaceholder.jpg?1520809083386') center center; 
   background-size: cover; 
 }
 
