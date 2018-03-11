@@ -8,7 +8,7 @@
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">
-            Welcome to Bookmark.io
+            Welcome to Webmark.io
           </h1>
           <h2 class="subtitle">
             The easiest way to keep your bookmarks organised and up to date.  Bookmark.io is a web app designed to help you keep track of your bookmarks in an easy and efficient way.
@@ -17,6 +17,12 @@
         </div>
       </div>
 
+      <!-- Hero footer: will stick at the bottom -->
+      <div class="hero-foot">
+        
+        <app-footer></app-footer>
+
+      </div>
     </section>
 
   </div>
@@ -24,13 +30,15 @@
 
 <script>
   import navbar from './_components/Navbar.vue' // import the navbar component
+  import AppFooter from './_components/Footer.vue' // import the navbar component
 
   export default {
     data: () => {
       return {} // Data from the controller is injected here
     },
     components: {
-      navbar // Import navbar and make the <navbar></navbar> tags available
+      navbar, // Import navbar and make the <navbar></navbar> tags available
+      AppFooter // Import navbar and make the <app-footer></app-footer> tags available
     }
   }
 </script>

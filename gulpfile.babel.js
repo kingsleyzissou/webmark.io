@@ -65,11 +65,13 @@ gulp.task('build', [
   'babel'
 ])
 
-gulp.task('default', [
-  'build'
-])
+// gulp.task('default', [
+//   'build'
+// ])
+
+
 
 // Watch task
-// gulp.task('default', () => {
-//   gulp.watch('src/scss/*.scss', ['styles'])
-// })
+gulp.task('default', () => {
+  gulp.watch('app/vies/*.Vue', ['build'])
+})

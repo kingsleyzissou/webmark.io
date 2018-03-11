@@ -7,14 +7,28 @@
   background-size: cover; 
 }
 
-.card:hover {
+.tile-card.card:hover {
   background: rgba(0,0,0,0.2);
 }
 
-.card-image i {
+.tile-card .card-image i {
   color: #3273dc;
 }
 
-.card:hover .card-image i {
+.tile-card .card:hover .tile-card .card-image i {
   color: #363636;
+}
+
+#content {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+  
+main {
+  flex: 1;
+}
+
+.hero-foot {
+  padding: 1em;
 }

@@ -1,19 +1,34 @@
 <template>
-  <div>
+  <div id="content">
 
-    <section class="hero is-primary">
+    <main>
 
-      <navbar active="about" ></navbar>
+      <section class="hero is-primary">
 
-    </section>
+        <navbar active="about" ></navbar>
 
-    <section class="container" style="margin: 0 auto; padding: 3rem 0">
+      </section>
 
-      <h3>Get in touch:</h3>
-      <hr>
-      <gmap></gmap>
+      <section class="container is-fluid app-content">
 
-    </section>
+        <h3>Get in touch:</h3>
+        <hr>
+        <gmap></gmap>
+
+      </section>
+
+      
+    </main>
+
+    <footer>
+
+        <div class="footer is-marginless is-paddingless">
+
+          <app-footer></app-footer>
+
+        </div>      
+
+    </footer>
 
   </div>
 </template>
@@ -21,6 +36,8 @@
 <script>
   import navbar from './_components/Navbar.vue' // Import the navbar component
   import gmap from './_components/Map.vue' // Import the google maps component
+  import AppFooter from './_components/Footer.vue' // Import the footer component
+  
   
   export default {
     data: () => {
@@ -28,7 +45,8 @@
     },
     components: {
       navbar, // Make the <navbar></navbar> tags available
-      gmap // Make the <gmap></gmap> tags available
+      gmap, // Make the <gmap></gmap> tags available
+      AppFooter // Import footer and make the <app-footer></app-footer> tags available      
     }
   }
 </script>

@@ -12,14 +12,18 @@ const findByCat = (req, res) => {
   Bookmark.find({ category: req.params.cat }, (err, bookmarks) => {
     
     if (err) res.send(err)
-    
-    // Set the title to be sent to the view in the data object
-    const title  = req.params.cat 
+
+    const data = {
+      title: req.params.cat, // Set the title to be sent to the view in the data object
+      modal: false, // Initialise the state of the modal
+      temp: {}, // Send an empty object that will be used on the client-side to delete a bookmark
+      bookmarks, // Send the bookmarks
+    }
 
     logger.info('Rendering bookmarks by ' + req.params.cat + ' category')
 
     // Render the Vue view - the data sent needs to be in the form of an object
-    res.renderVue('dashboard/categories/Show', { title, bookmarks }, config.vue.template(title + 'Bookmarks'))
+    res.renderVue('dashboard/categories/Show', data, config.vue.template(data.title.toUpperCase() + ' Bookmarks'))
 
   })
 }

@@ -4,22 +4,33 @@
       "id": 1,
       "category" : "html", 
       "title" : "HTMLReference", 
+      "description": "A free guide to all HTML elements and attributes.",
       "url" : "https://htmlreference.io/", 
       "image" : "https://htmlreference.io/images/html-reference-share.png" 
     },
     { 
       "id": 2,
       "category" : "css", 
-      "title" : "CSSReference", 
-      "url" : "https://htmlreference.io/", 
+      "title" : "CSSReference",
+      "description": "CSS Reference is a free visual guide to CSS. It features the most popular properties, and explains them with illustrated and animated examples.", 
+      "url" : "https://cssreference.io", 
       "image" : "https://cssreference.io/images/css-reference-share.png" 
     },
     { 
       "id": 3,
       "category" : "js", 
-      "title" : "Vue.js", 
+      "title" : "Vue.js",
+      "description": "Vue.js - The Progressive JavaScript Framework", 
       "url" : "https://vuejs.org/", 
       "image" : "https://vuejs.org//images/logo.png" 
+    },
+    { 
+      "id": 4,
+      "category" : "css", 
+      "title" : "Sass Guidelines",
+      "description": "An opinionated styleguide for writing sane, maintainable and scalable Sass.", 
+      "url" : "https://sass-guidelin.es/", 
+      "image" : "https://sass-guidelin.es/assets/images/sass-guidelines.png" 
     }
   ]
 }

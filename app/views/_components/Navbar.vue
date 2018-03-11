@@ -1,11 +1,12 @@
 <template>
     <!-- Hero head: will stick at the top -->
     <div class="hero-head">
-      <nav class="navbar">
+      <nav class="navbar main-navbar">
         <div class="container">
           <div class="navbar-brand">
             <a href="/" class="navbar-item">
-              BOOKMARK.IO
+              <i class="fas fa-anchor"></i>&nbsp;&nbsp;
+              WEBMARK.IO
             </a>
             <span class="navbar-burger burger" :class="{'is-active': active}" @click="active = !active">
               <span></span>
