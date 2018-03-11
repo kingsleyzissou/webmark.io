@@ -31,6 +31,14 @@
       "description": "An opinionated styleguide for writing sane, maintainable and scalable Sass.", 
       "url" : "https://sass-guidelin.es/", 
       "image" : "https://sass-guidelin.es/assets/images/sass-guidelines.png" 
+    },
+    { 
+      "id": 5,
+      "category" : "html", 
+      "title" : "MDN Web Docs",
+      "description": "The MDN Web Docs site provides information about Open Web technologies including HTML, CSS, and APIs for both Web sites and progressive web apps. It also has some developer-oriented documentation for Mozilla products, such as Firefox Developer Tools.", 
+      "url" : "https://developer.mozilla.org/en-US/", 
+      "image" : "https://cdn.mdn.mozilla.net/static/img/opengraph-logo.72382e605ce3.png" 
     }
   ]
 }

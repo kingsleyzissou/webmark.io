@@ -49,6 +49,7 @@
 
         <!-- <h2>{{ title | capitalise }} References:</h2>
         <hr> -->
+        
         <table class="table is-fullwidth is-hoverable">
           <thead>
             <th>Title</th>

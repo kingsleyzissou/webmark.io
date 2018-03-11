@@ -9,10 +9,18 @@
 
       </section>
 
+      <nav class="navbar has-shadow has-text-white" style="background: #00B899">
+        <div class="container">
+          <nav class="breadcrumb has-text-white" aria-label="breadcrumbs">
+            <ul>
+              <li>About</li>
+            </ul>
+          </nav>
+        </div>
+      </nav>
+
       <section class="container is-fluid app-content">
 
-        <h3>Get in touch:</h3>
-        <hr>
         <gmap></gmap>
 
       </section>
