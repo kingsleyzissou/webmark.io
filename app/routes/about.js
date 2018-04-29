@@ -1,13 +1,17 @@
-import express from 'express'
-import about from '../controllers/about'
+import Router from 'express-promise-router'
+import About from '@app/controllers/About'
+import authenticated from '@app/middleware/authenticated'
 
-const router = express.Router()
+const router = Router()
+const about = new About()
 
 /**
- * Invokes the index method in the about controller 
+ * Invokes the index method in the about controller
  * when a get request is made to the '/about' route
- * 
+ *
  */
-router.get('/about', about.index)
+router.get('/about', authenticated, about.index)
+
+router.post('/about', authenticated, about.addComment)
 
 export default router

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/bulma.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background: #f9fafc;
+    }
+
+    .dropzone {
+
+      padding: 4em 2em;
+      border: dashed 2px rgba(17,17,17,0.4);
+
+    }
+    .something {
+      background: red
+    }
+
+    .example-drag label.btn {
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
+    .example-drag .drop-active {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      position: fixed;
+      z-index: 9999;
+      opacity: .6;
+      text-align: center;
+      background: #000;
+    }
+    .example-drag .drop-active h3 {
+      margin: -.5em 0 0;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: #fff;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+
+    <section class="hero is-info">
+      <!-- Hero head: will stick at the top -->
+      <% include ../../partials/header %>
+
+      <nav class="navbar has-shadow has-text-white" style="background: #3AB6FF">
+        <div class="container">
+          <nav class="breadcrumb has-text-white" aria-label="breadcrumbs">
+            <ul>
+              <li>Dashboard&nbsp;</li>
+            </ul>
+          </nav>
+        </div>
+      </nav>
+
+    </section>
+
+
+    <!-- <section class="container" style="padding: 2em">
+
+      <div class="columns">
+
+        <div class="column is-one-quarter">
+
+            <div class="card">
+                <div class="card-content">
+                  <p class="title has-text-centered">
+                    <figure class="image is-128x128">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" style="border-radius: 999px">
+                    </figure>
+                  </p>
+                  <p class="subtitle">
+                    Gianluca
+                  </p>
+                </div>
+              </div>
+
+        </div>
+
+
+      </div>
+      
+    </section> -->
+
+    <section class="container has-text-centered" style="padding: 2em">
+
+      <div class="column is-6 is-offset-3">
+
+        <div class="card">
+          <div class="card-content" v-if="step == 1">
+            <p class="title has-text-centered">
+              Add Bookmark
+            </p>
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" v-model="form.title" placeholder="Title" autofocus="">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" v-model="form.category" placeholder="Category" autofocus="">
+              </div>
+            </div>
+            <div class="buttons is-right">
+              <!-- <div class="control"> -->
+                <button 
+                  class="button is-block is-info"
+                  @click.prevent="step ++"
+                >
+                  Next >
+                </button>
+              <!-- </div> -->
+            </div>
+          </div>
+          <div class="card-content" v-if="step == 2">
+            <p class="title has-text-centered">
+              Add Bookmark
+            </p>
+            <!-- <div class="field">
+              <div class="dropzone">
+                  <file-upload
+                    ref="upload"
+                    v-model="files"
+                    :drop="true"
+                    :headers="{ 'X-Requested-With': 'XMLHttpRequest' }"
+                    accept="image/*"
+                    post-action="/post.method"
+                    put-action="/put.method"
+                    @input-file="inputFile"
+                    @input-filter="inputFilter"
+                  >
+                  Upload file
+                  </file-upload>
+              </div>
+            </div> -->
+        </div>
+
+      </div>
+
+    </section>
+
+    <div class="modal" :class="{ 'is-active': modal }">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <!-- Any other Bulma elements you want -->
+      </div>
+      <button class="modal-close is-large" aria-label="close" @click="modal = false"></button>
+    </div>
+
+  </div>
+
+  <!-- <script src="/js/vue.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> -->
+  <% include ../../partials/scripts %>
+  <script src="https://unpkg.com/vue-upload-component"></script>
+  <script>
+    Vue.component('file-upload', VueUploadComponent)
+  </script>
+
+
+  <script> 
+    
+    // let user = JSON.parse(document.getElementById('user').value)
+
+    let app = new Vue({
+      el: '#content',
+      data() { 
+        return {
+          step: 2,
+          user: {},
+          errors: {},
+          files: [],
+          form: {
+            title: '',
+            category: '',
+            image: {
+
+            }
+          },
+          complete: false,
+          modal: false,
+          something: false
+        }
+      },
+      methods: {
+        /**
+         * Has changed
+         * @param  Object|undefined   newFile   Read only
+         * @param  Object|undefined   oldFile   Read only
+         * @return undefined
+         */
+        inputFile: function (newFile, oldFile) {
+          if (newFile && oldFile && !newFile.active && oldFile.active) {
+            // Get response data
+            console.log('response', newFile.response)
+            if (newFile.xhr) {
+              //  Get the response status code
+              console.log('status', newFile.xhr.status)
+            }
+          }
+        },
+        /**
+         * Pretreatment
+         * @param  Object|undefined   newFile   Read and write
+         * @param  Object|undefined   oldFile   Read only
+         * @param  Function           prevent   Prevent changing
+         * @return undefined
+         */
+        inputFilter: function (newFile, oldFile, prevent) {
+          if (newFile && !oldFile) {
+            // Filter non-image file
+            if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+              return prevent()
+            }
+          }
+
+          // Create a blob field
+          newFile.blob = ''
+          let URL = window.URL || window.webkitURL
+          if (URL && URL.createObjectURL) {
+            newFile.blob = URL.createObjectURL(newFile.file)
+          }
+        }
+      }
+    });
+
+  </script>
+  
+</body>
+</html>

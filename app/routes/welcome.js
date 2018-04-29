@@ -1,12 +1,13 @@
-import express from 'express'
-import welcome from '../controllers/welcome'
+import Router from 'express-promise-router'
+import Welcome from '@app/controllers/Welcome'
 
-const router = express.Router()
+const router = Router()
+const welcome = new Welcome()
 
 /**
- * Invokes the index method in the welcome controller 
+ * Invokes the index method in the welcome controller
  * when a get request is made to the '/' route
- * 
+ *
  */
 router.get('/', welcome.index)
 

@@ -1,0 +1,126 @@
+{
+  "users": [
+    {
+      "id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "username": "gianluca",
+      "name": "Gianluca",
+      "surname": "Zuccarelli",
+      "email": "gianlucazuccarelli@gmail.com",
+      "password": "$2b$10$PnkO2rSTDlxMbcmoeg40merR4ZAwKDDt0kUsxKxOd.V5zzbLTfe.q"
+    }
+  ],
+  "comments": [],
+  "bookmarks": [
+    {
+      "id": "1dedca39-2b6e-4e35-972c-cfc56a346221",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "library_id": "21e49491-938b-4699-b989-cb6d5fb578da",
+      "title": "Facebook",
+      "url": "http://facebook.com",
+      "created_at": 1525015284608,
+      "image_url": "http://res.cloudinary.com/djen5bc7o/image/upload/v1525015291/unzk4xi4q6fvp98bfphv.png"
+    },
+    {
+      "id": "bbe68214-75dc-48b1-9639-bdd00eb28f35",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "library_id": "21e49491-938b-4699-b989-cb6d5fb578da",
+      "title": "Spotify",
+      "url": "http://spotify.com",
+      "description": "Spotify is a digital music service that gives you access to millions of songs.",
+      "created_at": 1525017175330,
+      "image_url": "http://res.cloudinary.com/djen5bc7o/image/upload/v1525017175/pvfspgqrrtguxoil8st7.jpg"
+    },
+    {
+      "id": "5b92497f-85e7-4a8a-b4db-0e6200b9039f",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "library_id": "21e49491-938b-4699-b989-cb6d5fb578da",
+      "title": "Test",
+      "url": "http://test.com",
+      "description": "Test",
+      "created_at": 1525018171284,
+      "image_url": "http://res.cloudinary.com/djen5bc7o/image/upload/v1525018171/ccbhik1hsvcemuct7v6n.jpg"
+    },
+    {
+      "id": "650467b7-2b85-4ced-8220-27e65c41dce2",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "library_id": "21e49491-938b-4699-b989-cb6d5fb578da",
+      "title": "Jallah",
+      "url": "http://calciomercato.com",
+      "description": "Leggi Calciomercato.com: news sulla tua squadra, notizie e scoop, risultati di calcio italiano e internazionale in diretta. Calcio giocato e calciomercato.",
+      "created_at": 1525018198966,
+      "image_url": "http://res.cloudinary.com/djen5bc7o/image/upload/v1525018204/aoeh5ma3fcuzrn6pnpt9.png"
+    }
+  ],
+  "library": [
+    {
+      "id": "281d5765-cd0e-45fd-a3f0-1da67a38d5e0",
+      "title": "Test",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "bookmarks": []
+    },
+    {
+      "id": "90cbab5c-275f-4c98-bd3f-64464637118b",
+      "title": "Three",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "bookmarks": []
+    },
+    {
+      "id": "11a43f8f-cc9b-4f6f-b38c-6b29f832bbd3",
+      "title": "Four",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "bookmarks": []
+    },
+    {
+      "id": "21e49491-938b-4699-b989-cb6d5fb578da",
+      "title": "Test bookmark",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "bookmarks": [
+        {
+          "id": "1dedca39-2b6e-4e35-972c-cfc56a346221",
+          "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+          "library_id": "21e49491-938b-4699-b989-cb6d5fb578da",
+          "title": "Facebook",
+          "url": "http://facebook.com",
+          "created_at": 1525015284608,
+          "image_url": "http://res.cloudinary.com/djen5bc7o/image/upload/v1525015291/unzk4xi4q6fvp98bfphv.png"
+        },
+        {
+          "id": "bbe68214-75dc-48b1-9639-bdd00eb28f35",
+          "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+          "library_id": "21e49491-938b-4699-b989-cb6d5fb578da",
+          "title": "Spotify",
+          "url": "http://spotify.com",
+          "description": "Spotify is a digital music service that gives you access to millions of songs.",
+          "created_at": 1525017175330,
+          "image_url": "http://res.cloudinary.com/djen5bc7o/image/upload/v1525017175/pvfspgqrrtguxoil8st7.jpg"
+        },
+        {
+          "id": "5b92497f-85e7-4a8a-b4db-0e6200b9039f",
+          "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+          "library_id": "21e49491-938b-4699-b989-cb6d5fb578da",
+          "title": "Test",
+          "url": "http://test.com",
+          "description": "Test",
+          "created_at": 1525018171284,
+          "image_url": "http://res.cloudinary.com/djen5bc7o/image/upload/v1525018171/ccbhik1hsvcemuct7v6n.jpg"
+        },
+        {
+          "id": "650467b7-2b85-4ced-8220-27e65c41dce2",
+          "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+          "library_id": "21e49491-938b-4699-b989-cb6d5fb578da",
+          "title": "Jallah",
+          "url": "http://calciomercato.com",
+          "description": "Leggi Calciomercato.com: news sulla tua squadra, notizie e scoop, risultati di calcio italiano e internazionale in diretta. Calcio giocato e calciomercato.",
+          "created_at": 1525018198966,
+          "image_url": "http://res.cloudinary.com/djen5bc7o/image/upload/v1525018204/aoeh5ma3fcuzrn6pnpt9.png"
+        }
+      ]
+    },
+    {
+      "id": "6334176b-9130-4aa3-aaeb-17d3b4cf7c7c",
+      "title": "Heya",
+      "user_id": "38390180-2927-4563-9810-545fd4d8fdbe",
+      "bookmarks": []
+    }
+  ]
+}

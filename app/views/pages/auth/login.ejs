@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/bulma.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="content" style="height: 100vh; overflow: hidden">
+    <section class="hero is-info is-fullheight" style="overflow: scroll">
+      <!-- Hero head: will stick at the top -->
+      <% include ../../partials/navbar %>
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="column is-4 is-offset-4">
+
+                <div class="box" style="background: rgba(255,255,255,0.3); border-radius: 0; box-shadow:none; padding: 4em 2em">
+                  <!-- <figure class="avatar">
+                    <img src="https://placehold.it/128x128">
+                  </figure> -->
+                  <i class="has-text-white fas fa-anchor fa-3x" style="margin-bottom:0.5em"></i>
+                  <h1 class="title">
+                    Login
+                  </h1>
+                  <div 
+                    class="notification is-danger" 
+                    v-if="Object.keys(errors).length > 0"
+                    v-cloak 
+                  >
+                      <button class="delete" @click="errors = []"></button>
+                      <ul>
+                        <li v-for="error in errors">
+                          {{ error.message }}
+                        </li>
+                      </ul>
+                  </div>
+                  <form action="/login" method="POST">
+                    <div class="field">
+                      <div class="control">
+                        <input class="input is-large" type="text" v-model="form.username" placeholder="Username" autofocus="">
+                      </div>
+                    </div>
+      
+                    <div class="field">
+                      <div class="control">
+                        <input class="input is-large" type="password" v-model="form.password" placeholder="Password">
+                      </div>
+                    </div>
+                    <button class="button is-block is-info is-large is-fullwidth" @click.prevent="submit">Login</button>
+                  </form>
+                </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero footer: will stick at the bottom -->
+      <!-- <div class="hero-foot">
+        
+        <% include ../../partials/footer %>
+
+      </div> -->
+    </section>
+
+  </div>
+
+  <!-- <script src="/js/vue.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> -->
+  <% include ../../partials/scripts %>
+
+  <script> 
+    
+    let app = new Vue({
+      el: '#content',
+      data() { 
+        return {
+          errors: [],
+          form: {
+            username: '',
+            password: ''
+          },
+          complete: false
+        }
+      },
+      methods: {
+        submit() {
+          axios.post('/login', this.form)
+           .then(res => {
+             console.log(res)
+             this.complete = true
+             this.reset()
+             window.location.href = '/dashboard'
+           })
+           .catch(error => {
+             this.errors.push(error.response.data)
+           }) 
+        },
+        reset() {
+          this.form = {
+            username: '',
+            email: '',
+            password: ''
+          }
+        }
+      }
+    });
+
+  </script>
+  
+</body>
+</html>

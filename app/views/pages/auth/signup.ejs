@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <% include ../../partials/head %>
+</head>
+<body>
+  <div id="content">
+    <section class="hero is-bold is-fullheight">
+      <!-- Hero head: will stick at the top -->
+      <% include ../../partials/navbar %>
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body" v-cloak>
+        <div class="container has-text-centered">
+          <div class="column is-4 is-offset-4">
+
+                <div class="box animated" :class="{ flipOutY: complete }" v-if="!complete" style="box-shadow: none; background: rgba(255,255,255,0.1); padding: 4em 2em;">
+                  <!-- <figure class="avatar">
+                    <img src="https://placehold.it/128x128">
+                  </figure> -->
+                  <i class="fas fa-anchor fa-2x" style="margin-bottom: 0.5em;"></i>
+                  <h1 class="title has-text-dark">
+                    Sign Up
+                  </h1>
+                  <div 
+                    class="notification is-danger" 
+                    v-if="Object.keys(errors).length > 0"
+                    v-cloak 
+                  >
+                      <button class="delete" @click="errors = {}"></button>
+                      <ul>
+                        <li v-for="error in errors">
+                          {{ error.message }}
+                        </li>
+                      </ul>
+                  </div>
+                  <form action="/signup" method="POST">
+                    <div class="field">
+                      <div class="control">
+                        <input class="input is-large" type="text" placeholder="Username" v-model="form.username" autofocus="">
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <div class="control">
+                        <input class="input is-large" type="email" placeholder="Email" v-model="form.email" autofocus="">
+                      </div>
+                    </div>
+      
+                    <div class="field">
+                      <div class="control">
+                        <input class="input is-large" type="password" v-model="form.password" placeholder="Password">
+                      </div>
+                    </div>
+                    <button 
+                    type="submit" 
+                      class="button is-block is-info is-large is-fullwidth"
+                      @click.prevent="submit"
+                    >
+                      Signup
+                    </button>
+                  </form>
+                </div>
+
+                <div 
+                  class="box animated" 
+                  :class="{ flip: complete, flipOutY: !complete }" 
+                  v-if="complete"
+                  style="box-shadow: none; background: rgba(255,255,255,0.1); padding: 4em 2em; min-height: 200px"
+                  v-cloak
+                >
+
+                  <i class="far fa-check-circle fa-9x has-text-success"></i>
+
+                  <h2 class="title has-text-dark">Success</h2>
+                  <p class="subtitle has-text-dark">
+                      Click <a href="/login">here</a> to login
+                  </p>
+
+                </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero footer: will stick at the bottom -->
+      <!-- <div class="hero-foot">
+        
+        <% include ../../partials/footer %>
+
+      </div> -->
+    </section>
+
+  </div>
+
+  <% include ../../partials/scripts %>
+
+  <script> 
+
+    let app = new Vue({
+      el: '#content',
+      data() { 
+        return {
+          errors: {},
+          form: {
+            username: '',
+            email: '',
+            password: ''
+          },
+          complete: false
+        }
+      },
+      methods: {
+        submit() {
+          axios.post('/signup', this.form)
+           .then(res => {
+             console.log(res)
+             this.complete = true
+             this.reset()
+           })
+           .catch(error => {
+             console.log(error.response.data)
+             this.errors = error.response.data.error.errors
+           }) 
+        },
+        reset() {
+          this.form = {
+            username: '',
+            email: '',
+            password: ''
+          }
+        }
+      }
+    });
+
+  </script>
+  
+</body>
+</html>

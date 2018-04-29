@@ -1,37 +1,41 @@
-import mongoose from 'mongoose'
-import logger from '../utilities/logger'
-const Schema = mongoose.Schema
-
+import moment from 'moment'
+import Model from './Model'
+// import User from './User'
 /**
  * Define the Mongoose schema for bookmarks
- * 
+ *
  */
-const bookmarkSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true
-  },
-  category: {
-    type: String,
-    required: true
-  },
-  title: {
-    type: String,
-    required: true
-  },
-  url: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String
-  },
-  image: {
-    type: String
+class Bookmark extends Model {
+  constructor () {
+    super('bookmarks')
+    // this.User = new User( )
   }
-})
 
-const Bookmark = mongoose.model('Bookmark', bookmarkSchema)
+  filterByDate (user, type) {
+    let result = this.getMultiple({'user_id': user})
+    let data = {
+      labels: [],
+      count: []
+    }
+
+    for (let i = 6; i >= 0; i--) {
+      let count = 0
+      let date = moment().subtract(i, type)
+      result.forEach(r => {
+        if (r.created_at) {
+          if (date.isSame(r.created_at, type)) count++
+        }
+      })
+      if (type === 'day') {
+        data.labels.push(date.format('dddd'))
+      } else {
+        data.labels.push(date.format('MMMM'))
+      }
+      data.count.push(count)
+    }
+
+    return data
+  }
+}
 
 export default Bookmark

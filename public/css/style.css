@@ -47,3 +47,7 @@ main {
 .breadcrumb li + li::before {
   color: #fff;
 }
+
+[v-cloak] {
+  display: none;
+}

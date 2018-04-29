@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/bulma.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">  
+  <link rel="stylesheet" type="text/css" href="/css/style.css"> -->
+  <% include ../../partials/head %>
+    <style>
+      body {
+        background: #f9fafc;
+      }
+      
+      .card {
+        box-shadow: none;
+      }
+      
+      .collection {
+        margin: 1em 0;
+        padding: 0;
+        transition: 0.5s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        /* border: 1.5px solid #dbdbdb */
+      }
+
+      .collection .card-footer {
+        margin-top: auto;
+      }
+
+      .card-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        background: rgba(17,17,17,0.6);
+        opacity: 0;
+        transition: .5s ease;
+      }
+      
+      .collection:hover .card-image-overlay {
+        opacity: 1;
+      }
+      
+      .collection:hover {
+        /* color: #ffffff; */
+        background-color: rgba(100,100,100,0.2);     
+      }
+
+      /* .bm--card-equal-height {
+        
+      } */
+      
+      
+      /* .collection:hover .title {
+        color: #ffffff;
+      } */
+      
+      .dropzone.highlight {
+        background: rgba(17, 17, 17, 0.3)
+      }
+      
+      .overlay {
+        background: rgba(255, 255, 255, 0.8);
+        font-size: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 1000;
+      }
+      
+      .overlay:before {
+        content: "";
+        /* you need something or it will be invisible at least on Chrome */
+        background: transparent;
+        position: absolute;
+        z-index: 1001;
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        width: 10px;
+        border: 4px dashed rgba(17, 17, 17, 0.5);
+        height: calc(100% - 20px);
+        width: calc(100% - 20px);
+      }
+    </style>
+</head>
+
+<body>
+  <div id="content">
+
+    <section class="hero is-info">
+      <!-- Hero head: will stick at the top -->
+      <% include ../../partials/navbar %>
+
+        <nav class="navbar has-shadow has-text-white" style="background: #3AB6FF">
+          <div class="container"></div>
+        </nav>
+
+    </section>
+
+    <section class="container is-fluid app-content">
+
+        <div class="card has-text-centered">
+            <div class="card-image">
+              <!-- <i class="fa-4x" :class="icon" style="padding: 1em 0"></i> -->
+              <div id="map" style="min-height:200px"></div>
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <nav class="level">
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Devin Mendez</p>
+                      <p class="title"><i class="fas fa-user"></i></p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Victoria, Seychelles</p>
+                      <p class="title"><i class="fas fa-home"></i></p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">+555 555-5555</p>
+                      <p class="title"><i class="fas fa-phone"></i></p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">devinmendez@fake.com</p>
+                      <p class="title"><i class="fas fa-at"></i></p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+    </section>
+
+    <section class="container is-fluid">
+
+        <div class="card">
+          <div class="card-content">
+            <div class="content">
+              <p class="title">Contact us:</p>
+              <hr>
+              <div class="field">
+                <div class="control">
+                    <label class="label" for="">Title:</label>
+                    <input class="input" :class="{ 'is-danger': errors.has('subject') }" type="text" name="subject" v-model="form.subject" placeholder="Subject...">
+                </div>
+              </div>
+              <div class="field">
+                  <div class="control">
+                      <label class="label" for="">Message:</label>
+                      <textarea class="textarea" name="message" v-model="form.message" placeholder="Message..."></textarea>
+                  </div>
+              </div>
+              <div class="buttons is-right">
+                  <button 
+                    class="button is-block is-info"
+                    :class="{ 'is-loading': submitting }"
+                    type="submit"
+                    @click.prevent="submit"
+                  >
+                    Add
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </section>
+
+    <section class="container is-fluid">
+
+        <div class="card">
+          <div class="card-content">
+            <div class="content" v-if="comments">
+              <div class="media" v-for="comment in comments">
+                <figure class="media-left">
+                  <p class="image is-64x64">
+                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                  </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong>{{ comment.username }}</strong>
+                        <br>
+                        {{ comment.subject}}
+                        <br>
+                        {{ comment.message }}
+                      </p>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </section>
+    
+    <section style="height: 400px"></section>
+  </div>
+
+  <% include ../../partials/scripts %>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARG5-n8k_Fyzri_7zlC06_KUVqxbFt-h0&callback=gmaps" async defer></script>
+
+
+    <script>
+
+      function gmaps() {
+
+        const victoria = {lat: -4.619, lng: 55.446};
+
+        const map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: victoria
+        });
+
+        const marker = new google.maps.Marker({
+          position: victoria,
+          map: map
+        });
+
+      }
+
+      class Errors {
+        constructor() {
+          this.errors = {}
+        }
+
+        get(field) {
+          if (this.errors[field]) {
+            return this.errors[field].msg
+          }
+        }
+
+        set(errors) {
+          this.errors = errors
+        }
+
+        add(field, error) {
+          this.errors[field]= error
+        }
+
+        has(field) {
+          return this.errors.hasOwnProperty(field)
+        }
+
+        clear(field) {
+          delete this.errors[field]
+        }
+
+        any() {
+          return Object.keys(this.errors).length > 0
+        }
+
+        reset() {
+          this.errors = {}
+        }
+      }
+
+      let app = new Vue({
+        el: '#content',
+        data() {
+          return {
+            user: user,
+            errors: {},
+            errors: new Errors(),
+            form: {
+              username: user.username,
+              message: '',
+              subject: '',
+            },
+            comments: [],
+            modal: false,
+            expanded: false,
+            active: false,
+            overlay: false,
+            submitting: false,
+            preview: {}
+          }
+        },
+        methods: {
+          submit() {
+            this.submitting = true
+            axios.post('/about', { user: this.user.username, subject: this.form.subject, message: this.form.message })
+              .then(result => {
+                this.comments.push(result.data.data)
+                this.submitting = false
+                this.reset()
+              })
+              .catch(err => {
+                console.log(err.response.data)
+                this.errors.set(err.response.data.errors)
+              })
+          },
+          reset() {
+            this.form.subject = ''
+            this.form.message = ''
+          }
+        }
+      });
+    </script>
+
+</body>
+
+</html>

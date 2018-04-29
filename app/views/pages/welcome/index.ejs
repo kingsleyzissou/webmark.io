@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <% include ../../partials/head %>
+</head>
+<body>
+  <div>
+    <section class="hero is-primary has-bg-img is-medium">
+      <!-- Hero head: will stick at the top -->
+      <% include ../../partials/navbar %>
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">
+            Welcome to Webmark.io
+          </h1>
+          <h2 class="subtitle">
+            The easiest way to keep your bookmarks organised and up to date. 
+            Bookmark.io is a web app designed to help you keep track of your 
+            bookmarks in an easy and efficient way.
+          </h2>
+          <a href="/dashboard" class="button is-primary is-medium is-inverted is-outlined">Get Started</a>
+        </div>
+      </div>
+
+      
+    </section>
+
+    <section>
+
+        <nav class="level">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Users</p>
+                <p class="title"><%= users %></p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Bookmarks</p>
+                <p class="title"><%= bookmarks %></p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Categories</p>
+                <p class="title"><%= categories %></p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Likes</p>
+                <p class="title">789</p>
+              </div>
+            </div>
+          </nav>
+
+    </section>
+
+    <!-- Hero footer: will stick at the bottom -->
+    <section>
+        
+        <% include ../../partials/footer %>
+
+    </section>
+
+  </div>
+
+  <input type="hidden" id="data" value="<%= users %>">
+  <% include ../../partials/scripts %>
+  
+</body>
+</html>

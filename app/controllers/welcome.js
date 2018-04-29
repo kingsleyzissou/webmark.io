@@ -1,17 +1,34 @@
-import config from 'config'
-import logger from '../utilities/logger'
+// import config from 'config'
+import logger from '@app/utilities/logger'
+import User from '@app/models/User'
+import Controller from './Controller'
+import Bookmark from '@app/models/Bookmark'
+import Library from '@app/models/Library'
 
 /**
  * Render the welcome page view
- * 
+ *
  */
-const index = (req, res) => {
+class WelcomeController extends Controller {
+  constructor () {
+    super()
+    this.bindAll(['index'])
+    this.User = new User()
+    this.Bookmark = new Bookmark()
+    this.Library = new Library()
+  }
 
-  logger.info('Rendering start page')
+  index (req, res) {
+    logger.info('Rendering start page')
 
-  // Render the Vue view - no data is sent and therefore an empty object is sent to the view
-  res.renderVue('welcome/Index', {}, config.vue.template('Welcome'))
+    let data = {
+      users: this.User.count(),
+      bookmarks: this.Bookmark.count(),
+      categories: this.Library.count()
+    }
 
+    res.render('welcome/index', data)
+  }
 }
 
-export default { index }
+export default WelcomeController

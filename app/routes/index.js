@@ -1,42 +1,37 @@
-import express from 'express'
-import config from 'config'
-import dashboard from './dashboard'
-import welcome from './welcome'
+import Router from 'express-promise-router'
+import auth from './auth'
 import about from './about'
-import logger from '../utilities/logger'
+import library from './library'
+import welcome from './welcome'
+import bookmark from './bookmark'
+import dashboard from './dashboard'
+import sessionData from '@app/middleware/session'
+import { logError, xhrErrorHandler, errorHandler } from '../utilities/error-handlers'
 
-const router = express.Router()
+const router = Router()
 
-router.use(dashboard) // Import dashboard routes
-router.use(welcome) // Import landing page route
+router.use(sessionData)
+
+router.use(auth)
 router.use(about) // Import about page route
+router.use(library) // Import about page route
+router.use(welcome) // Import landing page route
+router.use(bookmark) // Import bookmark routes
+router.use(dashboard) // Import dashboard routes
 
 /**
  * This method is only called if it no route has been found.
- * At this point a 404 page 
- * 
+ * At this point a 404 page
+ *
  */
-router.use((req, res) => {
-
-  logger.error('Not found')
-
-  // Render the 404 page
-  res.renderVue('errors/404', {}, config.vue.template('404! Not found'))
-
+router.use((req, res, next) => {
+  let err = new Error('Oops, that page doesn\'t exist')
+  err.status = 404
+  next(err)
 })
 
-/**
- * Error handling method. Catches any errors
- * and renders an internal server error view
- * 
- */
-router.use((err, req, res, next) => {
-  
-  logger.error('There was an internal server error: ' + err)
-
-  // Render the internal server error view
-  res.renderVue('errors/500', {}, config.vue.template(err))
-
-})
+router.use(logError)
+router.use(xhrErrorHandler)
+router.use(errorHandler)
 
 export default router

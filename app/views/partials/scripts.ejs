@@ -1,0 +1,60 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+<script src="https://unpkg.com/vue-chartjs@2.6.0/dist/vue-chartjs.full.min.js"></script>
+<input id="user" type="hidden" value="<%= JSON.stringify(user) %>">
+<input id="authenticated" type="hidden" value="<%= authenticated %>">
+<script>
+
+  axios.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';
+
+  let user = JSON.parse(document.getElementById('user').value)
+  let authenticated = JSON.parse(document.getElementById('authenticated').value)
+
+  Vue.component('line-chart', {
+    extends: VueChartJs.Line,
+    props: ['values', 'labels'],
+    watch: {
+      'values': {
+        handler() {
+          // this._chart.destroy()
+          if(this._chart) {
+            this._chart.destroy()
+          }
+          this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 1500, 0)
+
+          this.gradient.addColorStop(1, 'rgba(32, 156, 238, 0.8)')
+          this.gradient.addColorStop(0.5, 'rgba(58, 182, 255, 0.8)');
+          this.gradient.addColorStop(0, 'rgba(0, 209, 178, 0.8)');
+          // Overwriting base render method with actual data.
+          this.renderChart({
+            labels: this.labels,
+            datasets: [
+              {
+                label: 'Bookmarks by period',
+                backgroundColor: this.gradient,
+                data: this.values
+              }
+            ]
+          }, 
+          {
+            responsive: true, 
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    display: true
+                }],
+                yAxes: [{
+                    display: false
+                }]
+            } 
+          })
+
+        }
+      }
+    },
+    mounted () {
+      
+    }
+  });
+
+</script>

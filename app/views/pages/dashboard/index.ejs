@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/bulma.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">  
+  <link rel="stylesheet" type="text/css" href="/css/style.css"> -->
+  <% include ../../partials/head %>
+  <style>
+    body {
+      background: #f9fafc;
+    }
+
+    .card {
+      box-shadow: none;
+    }
+
+    .card-content, .collection .title {
+      /* margin: 1em 0; */
+      transition: 0.5s ease
+    }
+    
+    .collection:hover .title {
+      color: #ffffff;
+    }
+
+    .collection:hover .card-content {
+      color: #ffffff;
+    }
+
+    .collection.collection-primary:hover .card-content{
+      background-color: #00d1b2;
+    }
+
+    .collection.collection-danger:hover .card-content{
+      background-color: #ff3860;
+    }
+
+    .collection.collection-info:hover .card-content{
+      background-color: #1496ed;
+    }
+
+    .collection.collection-warning:hover .card-content{
+      background-color: #ffdd57;
+    }
+
+    .collection.collection-link:hover .card-content{
+      background-color: #3273dc;
+    }
+
+    .collection.collection-success:hover .card-content{
+      background-color: #23d160;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="content">
+
+    <section class="hero is-info">
+      <!-- Hero head: will stick at the top -->
+      <% include ../../partials/navbar %>
+
+      <nav class="navbar has-shadow has-text-white" style="background: #3AB6FF">
+        <div class="container">
+          <!-- <nav class="breadcrumb has-text-white" aria-label="breadcrumbs">
+            <ul>
+              <li>Dashboard&nbsp;</li>
+            </ul>
+          </nav> -->
+        </div>
+      </nav>
+
+    </section>
+
+    <section class="columns" style="padding: 1em">
+      <% include ../../partials/sidebar %>
+      <div class="column">
+        <nav class="level">
+          <div class="level-left">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+              <ul>
+                <li>Dashboard&nbsp;</li>
+                <li>&nbsp;Somethingelse</li>
+              </ul>
+            </nav>
+          </div>
+        </nav>
+        <section class="columns">
+          <div class="column is-one-third-desktop">
+            <div class="notification is-primary">
+                <p class="subtitle">Bookmarks</p>
+                <p class="title">{{ stats.bookmarks }}</p>
+            </div>
+          </div>
+          <div class="column is-one-third-desktop">
+            <div class="notification is-info">
+                <p class="subtitle">Collections</p>
+                <p class="title">{{ collections.length }}</p>
+            </div>
+          </div>
+          <div class="column is-one-third-desktop">
+            <div class="notification is-link">
+              <p class="subtitle">Average Bookmarks per user</p>
+              <p class="title">{{ stats.total.bookmarks / stats.total.users }}</p>
+            </div>
+          </div>
+        </section>
+        <section class="columns">
+          <div class="column is-12">
+            <div class="card">
+              <div class="card-content">
+                  <div class="buttons has-addons is-right">
+                    <!-- <button class="button">Year</button> -->
+                    <button class="button" @click="getChartData('month')">Month</button>
+                    <!-- <button class="button">Week</button> -->
+                    <button class="button is-primary" @click="getChartData('day')">Day</button>
+                  </div>
+                  <line-chart :values="chart.count" :labels="chart.labels"></line-chart>
+              </div>
+            </div>
+          </div>
+        </section>
+        <hr>
+        <section>
+          <div class="card" style="margin: 1em 0">
+            <div class="card-content">
+              <nav class="level">
+                <div class="level-left">
+                  <p class="title">Bookmark Collections</p>
+                </div>
+                <div class="level-right">
+                  <button class="button is-white" @click="expanded = !expanded">
+                    <i class="fa" :class="{ 'fa-plus': !expanded, 'fa-minus': expanded }"></i>
+                  </button>
+                </div>
+              </nav>
+              <div v-if="expanded">
+                <div class="field">
+                  <div class="control">
+                      <label class="label" for="">Title</label>
+                      <input class="input" type="text" name="title" v-model="form.title" placeholder="Title...">
+                  </div>
+                </div>
+                <div class="buttons is-right">
+                  <button 
+                    class="button is-block is-info"
+                    :class="{ 'is-loading': submitting }"
+                    type="submit"
+                    @click.prevent="submit"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </section>
+        <section style="margin: 1em 0">
+          <div class="columns" v-for="(chunk,index) in collectionsChunk" v-if="collections.length > 0">
+              <div class="column is-4" v-for="(collection,i) in chunk" v-if="collections.length > 0">
+                <div class="card collection" :class="getHoverColor(index + 1, i)">
+                  <div class="card-content has-text-centered">
+                    <p class="title">{{ collection.title }}</p>
+                    <p class="heading">{{ collection.bookmarks.length | pluralize }}</p>
+                    <br>
+                  </div>
+                  <footer class="card-footer">
+                      <a :href="'/library/' + collection.id" class="card-footer-item">
+                          View&nbsp;
+                          <i class="fas fa-eye"></i>
+                      </a>
+                      <a href="" @click.prevent="confirmDelete(collection, index)" class="card-footer-item">
+                        Delete&nbsp;
+                        <i class="fas fa-trash"></i>
+                      </a>
+                  </footer>
+                </div>
+              </div>
+            </div>
+            <div class="columns" v-if="collections.length == 0">
+              <div class="column has-text-centered">
+                <div class="card" style="margin: 1em 0">
+                  <div class="card-content">
+                    <p class="subtitle">
+                      Oops, you have no bookmarks in this collection. Manage bookmarks here by adding them to the collection.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        <section class="columns">
+          <div class="column is-one-half-desktop">
+            <div class="notification is-success">
+                <p class="subtitle">Collection with most bookmarks</p>
+                <p class="title">{{ stats.max.title }}</p>
+                <small>{{ stats.max.count }} bookmarks</small>
+            </div>
+          </div>
+          <div class="column is-one-half-desktop">
+            <div class="notification is-danger">
+                <p class="subtitle">Collection with least bookmarks</p>
+                <p class="title">{{ stats.min.title }}</p>
+                <small>{{ stats.min.count }} bookmarks</small>
+            </div>
+          </div>
+        </section>
+        <hr>
+        <section class="columns" style="margin-top: 1em" v-if="Object.keys(rankings).length > 0">
+          <div class="column is-half-desktop">
+            <div class="card">
+              <header class="card-header" style="background: rgba(64,64,64,1);padding: 1em 2em">
+                  <p class="subtitle has-text-white">
+                    Users with <strong class="has-text-white">most</strong> bookmarks
+                  </p>
+              </header>
+              <div class="card-content">
+                <div v-for="(users, index) in rankings.max" v-cloak>
+                  <div class="media">
+                      <div class="media-left">
+                        {{ index + 1 }}.
+                      </div>
+                      <div class="media-content">
+                        <span class="title is-4">{{ user.username }}</span>
+                        <span class="subtitle" v-if="index == 0">&nbsp;🏆 🏆 🏆&nbsp;</span>
+                      </div>
+                      <div class="media-right" v-if="user.bookmarks">
+                        {{ user.bookmarks.count | pluralize }}
+                      </div>
+                    </div>
+                    <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-half-desktop">
+            <div class="card">
+              <header class="card-header" style="background: rgba(64,64,64,1);padding: 1em 2em">
+                  <div class="subtitle has-text-white">
+                    Users with <strong class="has-text-white">least</strong> bookmarks
+                  </div>
+              </header>
+              <div class="card-content">
+                <div v-for="(user, index) in rankings.min" v-cloak>
+                  <div class="media">
+                    <div class="media-left">
+                      {{ index + 1 }}.
+                    </div>
+                    <div class="media-content">
+                      <span class="title is-4">{{ user.username }}</span>
+                      <span class="subtitle" v-if="index == 0">&nbsp;💩 💩 💩&nbsp;</span>
+                    </div>
+                    <div class="media-right" v-if="user.bookmarks">
+                      {{ user.bookmarks.count | pluralize }}
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+      </div>
+    </section>
+    <section>
+      <div class="modal" :class="{ 'is-active': modal }">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <section class="modal-card-body">
+              <strong>
+                Are you sure you want to delete {{ temp.title }} collection?
+              </strong>
+              <hr>
+              <button 
+                class="button"
+                @click="modal=false"
+              >
+                Cancel
+              </button>
+              <button 
+                class="button is-danger is-pulled-right" 
+                @click="deleteCollection"
+              >
+                Delete
+              </button>
+            </section>
+          </div>
+          <button class="modal-close is-large" aria-label="close" @click="modal=false"></button>
+        </div>
+    </section>
+    <section style="height: 400px"></section>
+
+  </div>
+
+  <% include ../../partials/scripts %>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+
+  <input id="stats" type="hidden" value="<%= JSON.stringify(stats) %>">
+  <input id="collections" type="hidden" value="<%= JSON.stringify(library) %>">
+  <script> 
+    
+    let stats = JSON.parse(document.getElementById('stats').value)
+    let collections = JSON.parse(document.getElementById('collections').value)
+
+    let app = new Vue({
+      el: '#content',
+      mounted() {
+        this.getRankings()
+        this.getChartData('day')
+      },
+      data() { 
+        return {
+          authenticated: authenticated,
+          user: user,
+          stats: stats,
+          collections: collections,
+          errors: {},
+          valid: {
+            file: -1
+          },
+          form: {
+            title: '',
+          },
+          temp: {},
+          rankings: {},
+          chart: {},
+          complete: false,
+          submitting: false,
+          modal: false,
+          expanded: false,
+          active: false,
+        }
+      },
+      methods: {
+        getHoverColor(index,i) {
+          if(index%2 != 0) {
+            let className = {
+              0: 'collection-primary',
+              1: 'collection-danger',
+              2: 'collection-info'
+            }
+            return className[i]
+          } 
+
+          let className = {
+            0: 'collection-warning',
+            1: 'collection-link',
+            2: 'collection-success'
+          }
+          
+          return className[i]
+        },
+        getRankings() {
+          axios.get('/rankings')
+          .then(result => {
+            this.rankings = result.data.data
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        },
+        getChartData(period) {
+          axios.get('/bookmark/' + period)
+          .then(result => {
+            this.chart = result.data.data
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        },
+        submit() {
+          this.submitting = true
+          axios.post('library', { title: this.form.title })
+          .then(result => {
+            console.log(result.data)
+            this.collections.push(result.data.data)
+            this.submitting = false
+            this.form.title = ''
+          })
+          .catch(err => {
+            console.log(errs)
+          })
+        },
+        confirmDelete(bookmark, index) {
+            this.temp = bookmark
+            this.temp.index = index
+            this.modal = true
+        },
+        deleteCollection() {
+          axios.delete('/library/' + this.temp.id, { data: { id: this.temp.id } })
+            .then((res) => {
+              this.collections.splice(this.temp.index, 1)
+              this.temp = {}
+              this.modal = false
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        }
+      },
+      computed: {
+        collectionsChunk () {
+          return _.chunk(this.collections, 3)
+        }
+      },
+      filters: {
+        pluralize(value) {
+          if (value == 1) {
+            return value + " bookmark"
+          }
+          return value + " bookmarks"
+        }
+      }
+    });
+
+  </script>
+  
+</body>
+</html>
