@@ -27,7 +27,7 @@
     "express-promise-router": "^3.0.1",
     "express-session": "^1.15.6",
     "express-validator": "^5.1.2",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "lowdb": "^1.0.0",
     "method-override": "^2.3.10",
     "moment": "^2.22.1",
